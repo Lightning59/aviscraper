@@ -10,6 +10,8 @@ from selenium.webdriver.common.by import By
 import time
 
 standardPause = 2  # seconds for sleep
+monthDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August",
+             9: "September", 10: "October", 11: "November", 12: "December"}
 
 while True:
     UserInput = input("Issue date YYYMMDD:  ")
@@ -26,9 +28,9 @@ while True:
     except ValueError:
         print("Try again enter only 0-9: YYMMDD")
 
-
-decade=(year//10)*10
-decadeText=str(decade)+'s'
+decade = (year // 10) * 10
+decadeText = str(decade) + 's'
+monthDayText = monthDict[month]+" "+str(day)
 
 browser = webdriver.Firefox()
 browser.get('http://archive.aviationweek.com/')
@@ -40,15 +42,14 @@ search.click()
 
 time.sleep(standardPause)
 
-
-cssDecade=".the"+decadeText
+cssDecade = ".the" + decadeText
 
 search = browser.find_element(By.CSS_SELECTOR, cssDecade)
 time.sleep(standardPause)
 search.click()
 
 time.sleep(standardPause)
-search = browser.find_element(By.LINK_TEXT,str(year))
+search = browser.find_element(By.LINK_TEXT, str(year))
 time.sleep(standardPause)
 search.click()
 time.sleep(standardPause)
