@@ -41,15 +41,14 @@ search.click()
 time.sleep(standardPause)
 
 
-#xpathDecade = "//span[contains(.,'"+decadeText+"')]"
 cssDecade=".the"+decadeText
 
 search = browser.find_element(By.CSS_SELECTOR, cssDecade)
 time.sleep(standardPause)
 search.click()
 
-'''
-xpathyear="//a[contains(text(),'"+str(year)+"')]"
-search = browser.find_element(By.XPATH, xpathyear)
-
-'''
+time.sleep(standardPause)
+search = browser.find_element(By.LINK_TEXT,str(year))
+time.sleep(standardPause)
+search.click()
+time.sleep(standardPause)
