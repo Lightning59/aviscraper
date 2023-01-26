@@ -9,8 +9,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
+standardPause = 2  # seconds for sleep
+
 while True:
-    UserInput = input("Issue date YYYMMDD")
+    UserInput = input("Issue date YYYMMDD:  ")
     try:
         assert len(UserInput) == 8
         year = int(UserInput[0:4])
@@ -24,10 +26,30 @@ while True:
     except ValueError:
         print("Try again enter only 0-9: YYMMDD")
 
+
+decade=(year//10)*10
+decadeText=str(decade)+'s'
+
 browser = webdriver.Firefox()
 browser.get('http://archive.aviationweek.com/')
 
-time.sleep(2)
+time.sleep(standardPause)
 
 search = browser.find_element(By.XPATH, "//a[contains(text(),'Browse Issues')]")
 search.click()
+
+time.sleep(standardPause)
+
+
+#xpathDecade = "//span[contains(.,'"+decadeText+"')]"
+cssDecade=".the"+decadeText
+
+search = browser.find_element(By.CSS_SELECTOR, cssDecade)
+time.sleep(standardPause)
+search.click()
+
+'''
+xpathyear="//a[contains(text(),'"+str(year)+"')]"
+search = browser.find_element(By.XPATH, xpathyear)
+
+'''
