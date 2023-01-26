@@ -6,6 +6,14 @@
 
 #load the page at the given URL
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
 
 browser = webdriver.Firefox()
 browser.get('http://archive.aviationweek.com/')
+
+time.sleep(2)
+
+search=browser.find_element(By.XPATH,"//a[contains(text(),'Browse Issues')]")
+search.click()
