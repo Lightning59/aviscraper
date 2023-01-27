@@ -35,6 +35,12 @@ monthDayText = monthDict[month]+" "+str(day)
 browser = webdriver.Firefox()
 browser.get('http://archive.aviationweek.com/')
 
+while True:
+    usrInput=input("logged in and ready to browse issues?")
+    if usrInput=="y" or "Y":
+        break
+
+
 time.sleep(standardPause)
 
 search = browser.find_element(By.XPATH, "//a[contains(text(),'Browse Issues')]")
@@ -53,3 +59,15 @@ search = browser.find_element(By.LINK_TEXT, str(year))
 time.sleep(standardPause)
 search.click()
 time.sleep(standardPause)
+
+browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(standardPause*2)
+search=browser.find_element(By.XPATH,"//img[@title='Publication | "+monthDayText+" "+str(year)+"']")
+time.sleep(standardPause)
+search.click()
+
+
+time.sleep(standardPause)
+search = browser.find_element(By.CSS_SELECTOR, ".red > .visible")
+time.sleep(standardPause)
+search.click()
