@@ -12,7 +12,7 @@ import pyautogui
 import time
 import random
 
-with open("pass.txt",'r') as passfile:
+with open("pass.conf",'r') as passfile:
     username=passfile.readline()[0:-1]
     password=passfile.readline()
 passfile.close()
