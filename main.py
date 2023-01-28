@@ -7,8 +7,19 @@
 # load the page at the given URL
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+import pyautogui
 import time
+import random
 
+with open("pass.txt",'r') as passfile:
+    username=passfile.readline()[0:-1]
+    password=passfile.readline()
+passfile.close()
+
+
+
+screenWidth, screenHeight = pyautogui.size()
 standardPause = 2  # seconds for sleep
 monthDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August",
              9: "September", 10: "October", 11: "November", 12: "December"}
@@ -34,14 +45,35 @@ monthDayText = monthDict[month]+" "+str(day)
 
 browser = webdriver.Firefox()
 browser.get('http://archive.aviationweek.com/')
+actions = ActionChains(browser)
+time.sleep(standardPause)
 
 while True:
     usrInput=input("logged in and ready to browse issues?")
-    if usrInput=="y" or "Y":
+    if usrInput=="y":
+        break
+    elif usrInput=="n":
+        search=browser.find_element(By.XPATH,"//a[contains(text(),'Login')]")
+        print(search)
+        search.click()
+
+        time.sleep(standardPause)
+
+        search= browser.find_element(By.ID,"email")
+        search.send_keys(username)
+        time.sleep(random.random())
+        search = browser.find_element(By.ID, "password")
+        search.send_keys(password)
+        time.sleep(random.random())
+        search = browser.find_element(By.ID,"btn-login")
+        search.click()
         break
 
 
-time.sleep(standardPause)
+
+
+time.sleep(standardPause*10)
+
 
 search = browser.find_element(By.XPATH, "//a[contains(text(),'Browse Issues')]")
 search.click()
@@ -71,3 +103,10 @@ time.sleep(standardPause)
 search = browser.find_element(By.CSS_SELECTOR, ".red > .visible")
 time.sleep(standardPause)
 search.click()
+
+
+time.sleep(standardPause)
+search = browser.find_element(By.CLASS_NAME,"bndvwr__button--arrow--right")
+search.click()
+
+
