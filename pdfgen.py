@@ -1,5 +1,6 @@
 import os
 from fpdf.fpdf import FPDF
+from PIL import Image
 
 
 try:
@@ -20,7 +21,9 @@ print(newlist)
 
 pdf=FPDF(unit="pt")
 for image in newlist:
-    pdf.add_page(format=(2000,2588))
+    im=Image.open(image)
+    width,height = im.size
+    pdf.add_page(format=(width,height))
     pdf.image(image,0,0)
 
-pdf.output("results\\19280109.pdf","F")
+pdf.output("results\\19280109.pdf")
