@@ -1,5 +1,5 @@
 import os
-from fpdf import FPDF
+from fpdf.fpdf import FPDF
 
 
 try:
@@ -18,9 +18,9 @@ for index, item in enumerate(newlist):
 
 print(newlist)
 
-pdf=FPDF()
+pdf=FPDF(unit="pt")
 for image in newlist:
-    pdf.add_page()
+    pdf.add_page(format=(2000,2588))
     pdf.image(image,0,0)
 
 pdf.output("results\\19280109.pdf","F")
