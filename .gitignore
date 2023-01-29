@@ -1,5 +1,6 @@
 pass.conf
-Dirvers/*
+Drivers/*
 jpegtemp/*
+results/*
 geckodriver.log
 
