@@ -12,6 +12,17 @@ import pyautogui
 import time
 import random
 
+
+def islastpage(browser:webdriver.Firefox) -> bool:
+    search=browser.find_element(By.CLASS_NAME,"bndvwr__ctr_index")
+    text=search.text
+    text=text.replace(" ","")
+    current,last=text.split("/")
+    return current==last
+
+
+
+
 with open("pass.conf",'r') as passfile:
     username=passfile.readline()[0:-1]
     password=passfile.readline()
@@ -54,7 +65,6 @@ while True:
         break
     elif usrInput=="n":
         search=browser.find_element(By.XPATH,"//a[contains(text(),'Login')]")
-        print(search)
         search.click()
 
         time.sleep(standardPause)
@@ -70,10 +80,7 @@ while True:
         break
 
 
-
-
 time.sleep(standardPause*10)
-
 
 search = browser.find_element(By.XPATH, "//a[contains(text(),'Browse Issues')]")
 search.click()
@@ -103,10 +110,15 @@ time.sleep(standardPause)
 search = browser.find_element(By.CSS_SELECTOR, ".red > .visible")
 time.sleep(standardPause)
 search.click()
+time.sleep(standardPause+random.random())
 
-
-time.sleep(standardPause)
-search = browser.find_element(By.CLASS_NAME,"bndvwr__button--arrow--right")
-search.click()
+onlastpage=False
+while not onlastpage:
+    ## get page number (for pyautoGUI)
+    ### pyautoGUI save page
+    time.sleep(standardPause+random.random())
+    onlastpage = islastpage(browser)
+    search = browser.find_element(By.CLASS_NAME,"bndvwr__button--arrow--right")
+    search.click()
 
 
