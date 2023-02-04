@@ -37,3 +37,7 @@ def writepdffromjpegs(pdfname: str, jpegfolder: str) -> None:
     except Exception as e:
         print("error writing pdf")
         print(e)
+
+
+if __name__ == "__main__":
+    writepdffromjpegs("19280312", "jpegtemp")

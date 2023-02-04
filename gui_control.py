@@ -3,7 +3,6 @@ import time
 
 
 def saveimage(imagenamepath: str) -> None:
-
     """
     Saves the image with the filename and path passed. Requires that user window is active in a full screen avweek
     browser with image in the center of the screen and no other user input (like touching the mouse) will occur during
@@ -26,7 +25,10 @@ def saveimage(imagenamepath: str) -> None:
 
     pyautogui.typewrite(imagenamepath)
     time.sleep(1)
-    pyautogui.press("enter")
+    pyautogui.keyDown("enter")
     time.sleep(.2)
-    pyautogui.press("enter")
-    time.sleep(.5)
+    pyautogui.keyUp("enter")
+    time.sleep(1)
+    pyautogui.keyDown("enter")
+    time.sleep(.2)
+    pyautogui.keyUp("enter")

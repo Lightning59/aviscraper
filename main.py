@@ -11,6 +11,7 @@ import time
 import random
 import gui_control
 from pdfgen import *
+from dl_verify import *
 import os
 
 
@@ -144,6 +145,7 @@ search.click()
 time.sleep(standardPause + random.random())
 
 onlastpage = False
+lastpage = 0
 while not onlastpage:
     time.sleep(standardPause + random.random())
     pagenumber = returncurrentpage(browser)
@@ -151,8 +153,12 @@ while not onlastpage:
     gui_control.saveimage(pagenumbertext)
     time.sleep(standardPause + random.random())
     onlastpage = islastpage(browser)
+    if onlastpage:
+        lastpage = pagenumber
     search = browser.find_element(By.CLASS_NAME, "bndvwr__button--arrow--right")
     search.click()
+
+print(find_missing_images(jpegtempfoldername, int(lastpage)))
 
 while True:
     usrInput = input("All jpegs Successful?")
