@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 import time
 import random
 import gui_control
+from pdfgen import *
 import os
 
 
@@ -46,7 +47,7 @@ with open("pass.conf", 'r') as passfile:
 passfile.close()
 
 # get primary monitor size and set up a standard 2-second pause and month dict for month lookups where required.
-standardPause = 2  # seconds for sleep
+standardPause = 3  # seconds for sleep
 monthDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August",
              9: "September", 10: "October", 11: "November", 12: "December"}
 jpegtempfoldername="jpegtemp"
@@ -70,10 +71,13 @@ while True:
 try:
     os.mkdir(jpegtempfoldername)
 except FileExistsError:
+    filelist=os.listdir(jpegtempfoldername)
+    for file in filelist:
+        os.remove(os.path.join(jpegtempfoldername,file))
     pass
 
 cwd=os.getcwd()
-print(cwd)
+
 
 fulljpegtempdir=cwd+"\\"+jpegtempfoldername
 
@@ -150,3 +154,11 @@ while not onlastpage:
     onlastpage = islastpage(browser)
     search = browser.find_element(By.CLASS_NAME, "bndvwr__button--arrow--right")
     search.click()
+
+
+while True:
+    usrInput = input("logged in and ready to browse issues?")
+    if usrInput == "y":
+        break
+
+writepdffromjpegs(UserInput,jpegtempfoldername)
