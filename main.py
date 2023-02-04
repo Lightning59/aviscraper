@@ -50,7 +50,7 @@ passfile.close()
 standardPause = 3  # seconds for sleep
 monthDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August",
              9: "September", 10: "October", 11: "November", 12: "December"}
-jpegtempfoldername="jpegtemp"
+jpegtempfoldername = "jpegtemp"
 
 # get a valid issue date from the user (does not validate it's a real day an issue exists for)
 while True:
@@ -71,15 +71,14 @@ while True:
 try:
     os.mkdir(jpegtempfoldername)
 except FileExistsError:
-    filelist=os.listdir(jpegtempfoldername)
+    filelist = os.listdir(jpegtempfoldername)
     for file in filelist:
-        os.remove(os.path.join(jpegtempfoldername,file))
+        os.remove(os.path.join(jpegtempfoldername, file))
     pass
 
-cwd=os.getcwd()
+cwd = os.getcwd()
 
-
-fulljpegtempdir=cwd+"\\"+jpegtempfoldername
+fulljpegtempdir = cwd + "\\" + jpegtempfoldername
 
 # get decade text to select decade menu and month text with month name for individual magazine selection
 decade = (year // 10) * 10
@@ -95,9 +94,9 @@ browser.fullscreen_window()
 
 while True:
     usrInput = input("logged in and ready to browse issues?")
-    if usrInput == "y":
+    if usrInput in "yY":
         break
-    elif usrInput == "n":
+    elif usrInput in "nN":
         search = browser.find_element(By.XPATH, "//a[contains(text(),'Login')]")
         search.click()
 
@@ -146,19 +145,18 @@ time.sleep(standardPause + random.random())
 
 onlastpage = False
 while not onlastpage:
-    time.sleep(standardPause+random.random())
-    pagenumber=returncurrentpage(browser)
-    pagenumbertext=fulljpegtempdir+"\\"+pagenumber+".jpg"
+    time.sleep(standardPause + random.random())
+    pagenumber = returncurrentpage(browser)
+    pagenumbertext = fulljpegtempdir + "\\" + pagenumber + ".jpg"
     gui_control.saveimage(pagenumbertext)
     time.sleep(standardPause + random.random())
     onlastpage = islastpage(browser)
     search = browser.find_element(By.CLASS_NAME, "bndvwr__button--arrow--right")
     search.click()
 
-
 while True:
-    usrInput = input("logged in and ready to browse issues?")
-    if usrInput == "y":
+    usrInput = input("All jpegs Successful?")
+    if usrInput in "yY":
         break
 
-writepdffromjpegs(UserInput,jpegtempfoldername)
+writepdffromjpegs(UserInput, jpegtempfoldername)
